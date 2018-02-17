@@ -23,7 +23,7 @@ class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
 
     @Override
     protected List<String> getBootstrapHosts() {
-        return Arrays.asList(this.ip);
+        return Arrays.asList("couchbase");
     }
 
     @Override
