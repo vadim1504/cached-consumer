@@ -1,6 +1,5 @@
 package by.vadim.task;
 
-import by.vadim.task.model.CollectionClient;
 import by.vadim.task.amqp.Receiver;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -43,8 +42,8 @@ public class Application{
     @Bean
     public Transformer transformer() throws TransformerConfigurationException {
         return TransformerFactory.newInstance().newTransformer(new StreamSource(Application.class
-                .getResourceAsStream("transform.xsl")));
-    }
+                .getClassLoader().getResourceAsStream("transform.xsl")));
+   }
 
     @Bean
     public HttpEntity entity(){
@@ -54,7 +53,7 @@ public class Application{
     }
 
     @Bean JAXBContext jaxbContext() throws JAXBException {
-        return JAXBContext.newInstance(CollectionClient.class);
+        return JAXBContext.newInstance(Object.class);
     }
 
     @Bean Unmarshaller jaxbUnmarshaller(JAXBContext jaxbContext) throws JAXBException {
