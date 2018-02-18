@@ -44,7 +44,7 @@ public class ConsumingBalanceUserByHttpClient {
     public void getResponse() throws IOException, SAXException, TransformerException, JAXBException {
         ResponseEntity<String> response = null;
         try {
-            response = restTemplate.exchange("http://localhost:8080/user", HttpMethod.GET, entity, String.class);
+            response = restTemplate.exchange("http://localhost:8080/tariff-store/user", HttpMethod.GET, entity, String.class);
         }catch (Exception exception){
             System.out.println("Application #1 is dead");
         }
