@@ -42,7 +42,7 @@ public class Application{
 
     @Bean
     public Transformer transformer() throws TransformerConfigurationException {
-        return TransformerFactory.newInstance().newTransformer(new StreamSource("src/main/resources/transform.xsl"));
+        return TransformerFactory.newInstance().newTransformer(new StreamSource("transform.xsl"));
     }
 
     @Bean
