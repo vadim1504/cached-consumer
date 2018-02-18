@@ -44,20 +44,22 @@ public class ConsumingBalanceUserByHttpClient {
     public void getResponse() throws IOException, SAXException, TransformerException, JAXBException {
         ResponseEntity<String> response = null;
         try {
-            response = restTemplate.exchange("http://localhost:8080/tariff-store/user", HttpMethod.GET, entity, String.class);
+            response = restTemplate.exchange("http://http://192.168.99.100:8080/tariff-store/user", HttpMethod.GET, entity, String.class);
         }catch (Exception exception){
             System.out.println("Application #1 is dead");
         }
+        if(response!=null){
+            DOMSource source = new DOMSource(builder.parse(new InputSource(new StringReader(response.getBody()))));
 
-        DOMSource source = new DOMSource(builder.parse(new InputSource(new StringReader(response.getBody()))));
+            File empTableOutput = new File("src/main/resources/temp.xml");
+            StreamResult result = new StreamResult(empTableOutput);
 
-        File empTableOutput = new File("src/main/resources/temp.xml");
-        StreamResult result = new StreamResult(empTableOutput);
+            transformer.transform(source, result);
 
-        transformer.transform(source, result);
+            CollectionClient list = (CollectionClient) jaxbUnmarshaller.unmarshal(empTableOutput);
 
-        CollectionClient list = (CollectionClient) jaxbUnmarshaller.unmarshal(empTableOutput);
+            list.getItem().forEach(client -> clientService.createClient(client));
+        }
 
-        list.getItem().forEach(client -> clientService.createClient(client));
     }
 }
