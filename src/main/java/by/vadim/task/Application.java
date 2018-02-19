@@ -1,6 +1,7 @@
 package by.vadim.task;
 
 import by.vadim.task.amqp.Receiver;
+import by.vadim.task.model.CollectionClient;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -53,7 +54,7 @@ public class Application{
     }
 
     @Bean JAXBContext jaxbContext() throws JAXBException {
-        return JAXBContext.newInstance(Object.class);
+        return JAXBContext.newInstance(CollectionClient.class);
     }
 
     @Bean Unmarshaller jaxbUnmarshaller(JAXBContext jaxbContext) throws JAXBException {

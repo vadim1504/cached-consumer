@@ -51,7 +51,7 @@ public class ConsumingBalanceUserByHttpClient {
         if(response!=null){
             DOMSource source = new DOMSource(builder.parse(new InputSource(new StringReader(response.getBody()))));
 
-            File empTableOutput = new File("src/main/resources/temp.xml");
+            File empTableOutput = new File("temp.xml");
             StreamResult result = new StreamResult(empTableOutput);
 
             transformer.transform(source, result);
